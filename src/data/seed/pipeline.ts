@@ -1,0 +1,71 @@
+import type { BranchPipelineEntry } from "@/src/types/entities"
+
+const checklist = (prefix: string, done: number) =>
+  ["KYC document", "Proposal sent", "PIC confirmed"].map((description, index) => ({
+    id: `${prefix}-c${index + 1}`,
+    description,
+    done: index < done,
+  }))
+
+export const pipeline: BranchPipelineEntry[] = [
+  {
+    id: "PIP-001",
+    branchId: "KC-JKT-THAMRIN",
+    customerName: "PT Nusantara Pangan",
+    category: "PAYROLL",
+    stage: "PITCHING",
+    picNip: "199002202015031002",
+    scheduledDate: "2026-11-23",
+    visitStatus: "SCHEDULED",
+    checklist: checklist("PIP-001", 1),
+    visitHistory: [{ date: "2026-11-20", note: "Initial call completed.", picNip: "199002202015031002" }],
+  },
+  {
+    id: "PIP-002",
+    branchId: "KC-JKT-THAMRIN",
+    customerName: "Koperasi Sejahtera",
+    category: "BUSINESS",
+    stage: "DOCUMENTS",
+    picNip: "198503152010121001",
+    scheduledDate: "2026-11-23",
+    visitStatus: "SCHEDULED",
+    checklist: checklist("PIP-002", 2),
+    visitHistory: [],
+  },
+  {
+    id: "PIP-003",
+    branchId: "KC-BDG-DAGO",
+    customerName: "Hotel Dago Indah",
+    category: "MERCHANT",
+    stage: "PROSPECTING",
+    picNip: "199308152019041008",
+    scheduledDate: "2026-11-23",
+    visitStatus: "SCHEDULED",
+    checklist: checklist("PIP-003", 0),
+    visitHistory: [],
+  },
+  {
+    id: "PIP-004",
+    branchId: "KC-JKT-THAMRIN",
+    customerName: "Klinik Sentosa",
+    category: "PRIORITY",
+    stage: "MOU",
+    picNip: "198811112012122003",
+    scheduledDate: "2026-11-23",
+    visitStatus: "RESCHEDULED",
+    checklist: checklist("PIP-004", 2),
+    visitHistory: [{ date: "2026-11-22", note: "Moved to next week.", picNip: "198811112012122003" }],
+  },
+  {
+    id: "PIP-005",
+    branchId: "KC-SBY-TUNJUNGAN",
+    customerName: "PT Laut Biru",
+    category: "PAYROLL",
+    stage: "ACQUISITION",
+    picNip: "199006112014031010",
+    scheduledDate: "2026-11-28",
+    visitStatus: "SCHEDULED",
+    checklist: checklist("PIP-005", 3),
+    visitHistory: [],
+  },
+]

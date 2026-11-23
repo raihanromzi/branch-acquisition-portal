@@ -33,13 +33,13 @@ Single Next.js App Router project at the repository root. UI in `components/`, d
 
 **Purpose**: Create the project, install the UI system, and set up the tooling.
 
-- [ ] T001 Create the Next.js 14+ App Router project with strict TypeScript in `package.json`, `tsconfig.json`, and `next.config.ts` at the repository root
-- [ ] T002 Install and configure Tailwind CSS and initialize shadcn/ui, creating `components.json` and the theme tokens in `app/globals.css`
-- [ ] T003 [P] Add the shadcn/ui components button, input, label, select, card, tabs, table, badge, dialog, sheet, form, textarea, and sonner into `components/ui/` via the shadcn CLI
-- [ ] T004 [P] Install runtime dependencies: react-hook-form, zod, @hookform/resolvers, lucide-react, leaflet, react-leaflet, leaflet.markercluster, @types/leaflet, and xlsx, recorded in `package.json`
-- [ ] T005 [P] Configure ESLint and Prettier in `eslint.config.mjs` and `.prettierrc`
-- [ ] T006 [P] Add `node_modules/`, `.next/`, and `out/` to `.gitignore` at the repository root, keeping existing entries
-- [ ] T007 Create the directory layout from plan.md: `src/domain/`, `src/data/seed/`, `src/exports/`, `src/types/`, and `components/{dashboard,intake,approval,pipeline,monitoring,catalog,reports}/`
+- [X] T001 Create the Next.js 14+ App Router project with strict TypeScript in `package.json`, `tsconfig.json`, and `next.config.ts` at the repository root
+- [X] T002 Install and configure Tailwind CSS and initialize shadcn/ui, creating `components.json` and the theme tokens in `app/globals.css`
+- [X] T003 [P] Add the shadcn/ui components button, input, label, select, card, tabs, table, badge, dialog, sheet, form, textarea, and sonner into `components/ui/` via the shadcn CLI
+- [X] T004 [P] Install runtime dependencies: react-hook-form, zod, @hookform/resolvers, lucide-react, leaflet, react-leaflet, leaflet.markercluster, @types/leaflet, and xlsx, recorded in `package.json`
+- [X] T005 [P] Configure ESLint and Prettier in `eslint.config.mjs` and `.prettierrc`
+- [X] T006 [P] Add `node_modules/`, `.next/`, and `out/` to `.gitignore` at the repository root, keeping existing entries
+- [X] T007 Create the directory layout from plan.md: `src/domain/`, `src/data/seed/`, `src/exports/`, `src/types/`, and `components/{dashboard,intake,approval,pipeline,monitoring,catalog,reports}/`
 
 **Checkpoint**: Project builds an empty dashboard page with shadcn/ui available.
 
@@ -52,17 +52,17 @@ user story can start until this phase is complete.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T008 Define all shared entity types and enums in `src/types/entities.ts` per `data-model.md` (StaffMember, Branch, Product, AcquisitionSubmission, AcquisitionStatus, BranchPipelineEntry, Merchant, BranchKpi)
-- [ ] T009 [P] Implement `parseRupiah` (integer rounding, rejects letters) and `formatRupiah` (`Rp 1.500.000`) in `src/domain/currency.ts`, following `data-model.md` `AcquisitionSubmission.amount`
-- [ ] T010 [P] Implement `isValidNipFormat` in `src/domain/nip.ts`, following `data-model.md` `StaffMember.nip` (exactly 18 digits)
-- [ ] T011 [P] Implement `isMerchantAlert` with exported named threshold constants (Rp 5,000,000 and 10 transactions) in `src/domain/merchant-alert.ts`, following `data-model.md` `Merchant.isAlert` and `research.md` section 7
-- [ ] T012 [P] Create seed modules `src/data/seed/branches.ts`, `src/data/seed/staff.ts`, and `src/data/seed/products.ts` with realistic fictional records for `Branch`, `StaffMember.nip`, and `Product.code`
-- [ ] T013 [P] Create seed modules `src/data/seed/submissions.ts`, `src/data/seed/pipeline.ts`, `src/data/seed/merchants.ts`, and `src/data/seed/kpi.ts` with fictional records for `AcquisitionSubmission`, `BranchPipelineEntry`, `Merchant`, and `BranchKpi`
-- [ ] T014 Implement the in-memory store with actions `lookupStaff`, `submitAcquisition`, `setNbdsResult`, `transitionStatus`, `advancePipelineStage`, `addChecklistDone`, `addVisitRecord`, `batchMarkVisitsDone`, and `reset` in `src/data/store.ts`, per `contracts/data-access.md`
-- [ ] T015 Implement versioned localStorage sync (one key, reseed on version mismatch, try/catch on every read and write) in `src/data/persistence.ts`, per `research.md` section 12
-- [ ] T016 Implement a store subscription hook in `src/data/use-store.ts` that notifies components after each write
-- [ ] T017 Build the unified dashboard shell with open-tab state and a tab bar in `app/layout.tsx`, `app/page.tsx`, and `components/dashboard/tab-bar.tsx`, with open tabs mirrored to localStorage
-- [ ] T018 Add the reset action to the dashboard header in `components/dashboard/header.tsx`, calling `reset()` from `src/data/store.ts`
+- [X] T008 Define all shared entity types and enums in `src/types/entities.ts` per `data-model.md` (StaffMember, Branch, Product, AcquisitionSubmission, AcquisitionStatus, BranchPipelineEntry, Merchant, BranchKpi)
+- [X] T009 [P] Implement `parseRupiah` (integer rounding, rejects letters) and `formatRupiah` (`Rp 1.500.000`) in `src/domain/currency.ts`, following `data-model.md` `AcquisitionSubmission.amount`
+- [X] T010 [P] Implement `isValidNipFormat` in `src/domain/nip.ts`, following `data-model.md` `StaffMember.nip` (exactly 18 digits)
+- [X] T011 [P] Implement `isMerchantAlert` with exported named threshold constants (Rp 5,000,000 and 10 transactions) in `src/domain/merchant-alert.ts`, following `data-model.md` `Merchant.isAlert` and `research.md` section 7
+- [X] T012 [P] Create seed modules `src/data/seed/branches.ts`, `src/data/seed/staff.ts`, and `src/data/seed/products.ts` with realistic fictional records for `Branch`, `StaffMember.nip`, and `Product.code`
+- [X] T013 [P] Create seed modules `src/data/seed/submissions.ts`, `src/data/seed/pipeline.ts`, `src/data/seed/merchants.ts`, and `src/data/seed/kpi.ts` with fictional records for `AcquisitionSubmission`, `BranchPipelineEntry`, `Merchant`, and `BranchKpi`
+- [X] T014 Implement the in-memory store with actions `lookupStaff`, `submitAcquisition`, `setNbdsResult`, `transitionStatus`, `advancePipelineStage`, `addChecklistDone`, `addVisitRecord`, `batchMarkVisitsDone`, and `reset` in `src/data/store.ts`, per `contracts/data-access.md`
+- [X] T015 Implement versioned localStorage sync (one key, reseed on version mismatch, try/catch on every read and write) in `src/data/persistence.ts`, per `research.md` section 12
+- [X] T016 Implement a store subscription hook in `src/data/use-store.ts` that notifies components after each write
+- [X] T017 Build the unified dashboard shell with open-tab state and a tab bar in `app/layout.tsx`, `app/page.tsx`, and `components/dashboard/tab-bar.tsx`, with open tabs mirrored to localStorage
+- [X] T018 Add the reset action to the dashboard header in `components/dashboard/header.tsx`, calling `reset()` from `src/data/store.ts`
 
 **Checkpoint**: Foundation ready. Store, seed data, and dashboard shell work. User stories can
 now start in parallel if staffed.
@@ -77,15 +77,15 @@ and submission to the approval queue.
 **Independent Test**: Submit one acquisition of each of the five types. Valid submissions appear
 in the queue as "Waiting for Approval". Invalid NIPs are blocked with a clear message.
 
-- [ ] T019 [P] [US1] Implement per-type zod schemas for the five acquisition types in `src/domain/intake-schema.ts`, following `data-model.md` `AcquisitionSubmission.acquisitionType`, `estimatedEmployees`, `estimatedAum` (min Rp 500,000,000 pending confirmation per data-model.md open question), `edcType`, and `estimatedSalesVolume`
-- [ ] T020 [P] [US1] Implement `visitDate` validation as a valid calendar date within the allowed range in `src/domain/date-rules.ts`, following `data-model.md` `AcquisitionSubmission.visitDate`
-- [ ] T021 [US1] Extend `submitAcquisition` in `src/data/store.ts` to run the schema and NIP lookup, copy `staffName` and `branchId` from StaffMember, set `status` to `WAITING_APPROVAL`, and return field errors, per `contracts/data-access.md`
-- [ ] T022 [US1] Build the intake form container with the type selector and only the fields for the chosen type in `components/intake/intake-form.tsx`
-- [ ] T023 [US1] Build the NIP field with live lookup that fills and locks name and branch in `components/intake/nip-field.tsx`, following `data-model.md` `StaffMember.nip`
-- [ ] T024 [US1] Build the Rupiah input with masking on blur in `components/intake/rupiah-input.tsx`, following `data-model.md` `AcquisitionSubmission.amount`
-- [ ] T025 [US1] Build the product dropdown from the fixed code list in `components/intake/product-select.tsx`, following `data-model.md` `Product.code`
-- [ ] T026 [US1] Build the date field with calendar validation in `components/intake/date-field.tsx`, following `data-model.md` `AcquisitionSubmission.visitDate`
-- [ ] T027 [US1] Build the Intake tab that combines the form and shows success or error messages in `components/intake/intake-tab.tsx`, and register it in `components/dashboard/tab-bar.tsx`
+- [X] T019 [P] [US1] Implement per-type zod schemas for the five acquisition types in `src/domain/intake-schema.ts`, following `data-model.md` `AcquisitionSubmission.acquisitionType`, `estimatedEmployees`, `estimatedAum` (min Rp 500,000,000 pending confirmation per data-model.md open question), `edcType`, and `estimatedSalesVolume`
+- [X] T020 [P] [US1] Implement `visitDate` validation as a valid calendar date within the allowed range in `src/domain/date-rules.ts`, following `data-model.md` `AcquisitionSubmission.visitDate`
+- [X] T021 [US1] Extend `submitAcquisition` in `src/data/store.ts` to run the schema and NIP lookup, copy `staffName` and `branchId` from StaffMember, set `status` to `WAITING_APPROVAL`, and return field errors, per `contracts/data-access.md`
+- [X] T022 [US1] Build the intake form container with the type selector and only the fields for the chosen type in `components/intake/intake-form.tsx`
+- [X] T023 [US1] Build the NIP field with live lookup that fills and locks name and branch in `components/intake/nip-field.tsx`, following `data-model.md` `StaffMember.nip`
+- [X] T024 [US1] Build the Rupiah input with masking on blur in `components/intake/rupiah-input.tsx`, following `data-model.md` `AcquisitionSubmission.amount`
+- [X] T025 [US1] Build the product dropdown from the fixed code list in `components/intake/product-select.tsx`, following `data-model.md` `Product.code`
+- [X] T026 [US1] Build the date field with calendar validation in `components/intake/date-field.tsx`, following `data-model.md` `AcquisitionSubmission.visitDate`
+- [X] T027 [US1] Build the Intake tab that combines the form and shows success or error messages in `components/intake/intake-tab.tsx`, and register it in `components/dashboard/tab-bar.tsx`
 
 **Checkpoint**: User Story 1 works on its own. Submissions reach the store with status
 "Waiting for Approval".
@@ -100,13 +100,13 @@ in the queue as "Waiting for Approval". Invalid NIPs are blocked with a clear me
 Existing CIF submission (warning and confirmation). Reject without a note (blocked). Reject with
 a note (accepted). Complete an accepted submission.
 
-- [ ] T028 [P] [US2] Implement the status state machine with `canTransition` and `isGmmEligible` in `src/domain/acquisition-status.ts`, following `data-model.md` `AcquisitionStatus state machine` and `AcquisitionSubmission.acceptedWithoutNewCif`
-- [ ] T029 [P] [US2] Implement the simulated NBDS classification (`NEW_CIF`, `EXISTING_CIF`, `UNVERIFIED`) from seed data in `src/domain/nbds.ts`, following `data-model.md` `AcquisitionSubmission.nbdsResult`
-- [ ] T030 [US2] Implement `transitionStatus` and `setNbdsResult` in `src/data/store.ts`, enforcing note required for `REJECTED` (`AcquisitionSubmission.note`) and confirmation for non-New CIF accepts (`AcquisitionSubmission.acceptedWithoutNewCif`), per `contracts/data-access.md`
-- [ ] T031 [US2] Build the approval queue with status filters in `components/approval/approval-queue.tsx`
-- [ ] T032 [US2] Build status action controls with a note dialog for rejection and a confirmation dialog for non-New CIF accepts in `components/approval/status-actions.tsx`, following `data-model.md` `AcquisitionSubmission.note`
-- [ ] T033 [US2] Build the NBDS log indicator showing New or Existing CIF in `components/approval/nbds-log.tsx`
-- [ ] T034 [US2] Build the Approval tab in `components/approval/approval-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
+- [X] T028 [P] [US2] Implement the status state machine with `canTransition` and `isGmmEligible` in `src/domain/acquisition-status.ts`, following `data-model.md` `AcquisitionStatus state machine` and `AcquisitionSubmission.acceptedWithoutNewCif`
+- [X] T029 [P] [US2] Implement the simulated NBDS classification (`NEW_CIF`, `EXISTING_CIF`, `UNVERIFIED`) from seed data in `src/domain/nbds.ts`, following `data-model.md` `AcquisitionSubmission.nbdsResult`
+- [X] T030 [US2] Implement `transitionStatus` and `setNbdsResult` in `src/data/store.ts`, enforcing note required for `REJECTED` (`AcquisitionSubmission.note`) and confirmation for non-New CIF accepts (`AcquisitionSubmission.acceptedWithoutNewCif`), per `contracts/data-access.md`
+- [X] T031 [US2] Build the approval queue with status filters in `components/approval/approval-queue.tsx`
+- [X] T032 [US2] Build status action controls with a note dialog for rejection and a confirmation dialog for non-New CIF accepts in `components/approval/status-actions.tsx`, following `data-model.md` `AcquisitionSubmission.note`
+- [X] T033 [US2] Build the NBDS log indicator showing New or Existing CIF in `components/approval/nbds-log.tsx`
+- [X] T034 [US2] Build the Approval tab in `components/approval/approval-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
 
 **Checkpoint**: User Stories 1 and 2 both work. Submissions can be approved, rejected, and completed.
 
@@ -120,12 +120,12 @@ batch closing.
 **Independent Test**: Filter by branch. Advance one entry by one stage. Add a visit note. Mark two
 of three of today's visits as Done in one batch.
 
-- [ ] T035 [P] [US3] Implement stage order, forward-only `advanceStage`, and `selectBatchClosable` in `src/domain/pipeline.ts`, following `data-model.md` `BranchPipelineEntry.stage`, `scheduledDate`, and `visitStatus`
-- [ ] T036 [US3] Implement `advancePipelineStage`, `addChecklistDone`, `addVisitRecord`, and `batchMarkVisitsDone` in `src/data/store.ts`, per `contracts/data-access.md`; visit notes are append-only (`BranchPipelineEntry.visitHistory`)
-- [ ] T037 [US3] Build the pipeline matrix with branch and PIC filters in `components/pipeline/pipeline-matrix.tsx`, following `data-model.md` `BranchPipelineEntry.picNip`
-- [ ] T038 [US3] Build the entry detail view with stage control, checklist, and visit history form in `components/pipeline/entry-detail.tsx`, following `data-model.md` `BranchPipelineEntry.checklist` and `visitHistory`
-- [ ] T039 [US3] Build the batch closing panel with select-all and one-click "Mark Visit Done" in `components/pipeline/batch-closing-panel.tsx`, using `selectBatchClosable`
-- [ ] T040 [US3] Build the Pipeline tab in `components/pipeline/pipeline-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
+- [X] T035 [P] [US3] Implement stage order, forward-only `advanceStage`, and `selectBatchClosable` in `src/domain/pipeline.ts`, following `data-model.md` `BranchPipelineEntry.stage`, `scheduledDate`, and `visitStatus`
+- [X] T036 [US3] Implement `advancePipelineStage`, `addChecklistDone`, `addVisitRecord`, and `batchMarkVisitsDone` in `src/data/store.ts`, per `contracts/data-access.md`; visit notes are append-only (`BranchPipelineEntry.visitHistory`)
+- [X] T037 [US3] Build the pipeline matrix with branch and PIC filters in `components/pipeline/pipeline-matrix.tsx`, following `data-model.md` `BranchPipelineEntry.picNip`
+- [X] T038 [US3] Build the entry detail view with stage control, checklist, and visit history form in `components/pipeline/entry-detail.tsx`, following `data-model.md` `BranchPipelineEntry.checklist` and `visitHistory`
+- [X] T039 [US3] Build the batch closing panel with select-all and one-click "Mark Visit Done" in `components/pipeline/batch-closing-panel.tsx`, using `selectBatchClosable`
+- [X] T040 [US3] Build the Pipeline tab in `components/pipeline/pipeline-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
 
 **Checkpoint**: User Story 3 works on its own.
 
@@ -138,12 +138,12 @@ of three of today's visits as Done in one batch.
 **Independent Test**: KPIs match seed data. Map clusters and alert markers match the rule. The
 route for three alert merchants starts at the branch and lists all three in order.
 
-- [ ] T041 [P] [US4] Implement haversine distance and nearest-neighbor `planVisitRoute` returning ordered stops and total kilometers in `src/domain/route.ts`, per `contracts/data-access.md`
-- [ ] T042 [P] [US4] Build the KPI cards for wholesale units, savings portfolio, merchant growth, Livin' Merchant activity, and EDC penetration in `components/monitoring/kpi-cards.tsx`, following `data-model.md` `BranchKpi`
-- [ ] T043 [US4] Build the merchant map with marker clustering, a distinct alert icon, and client-only loading (`ssr: false`) in `components/monitoring/merchant-map.tsx`, following `data-model.md` `Merchant.latitude`, `longitude`, and `isAlert`; disable the alert blink under `prefers-reduced-motion`
-- [ ] T044 [US4] Build the merchant detail drawer with CIF, monthly sales, MDR scheme, and "Schedule Visit" action in `components/monitoring/merchant-drawer.tsx`, following `data-model.md` `Merchant.cif`, `monthlySales`, and `mdrPercent`
-- [ ] T045 [US4] Build the route panel that takes selected alert merchants and shows the ordered route in `components/monitoring/route-panel.tsx`, using `planVisitRoute` from `src/domain/route.ts`; disable the action when no merchants are in range
-- [ ] T046 [US4] Build the Monitoring tab in `components/monitoring/monitoring-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
+- [X] T041 [P] [US4] Implement haversine distance and nearest-neighbor `planVisitRoute` returning ordered stops and total kilometers in `src/domain/route.ts`, per `contracts/data-access.md`
+- [X] T042 [P] [US4] Build the KPI cards for wholesale units, savings portfolio, merchant growth, Livin' Merchant activity, and EDC penetration in `components/monitoring/kpi-cards.tsx`, following `data-model.md` `BranchKpi`
+- [X] T043 [US4] Build the merchant map with marker clustering, a distinct alert icon, and client-only loading (`ssr: false`) in `components/monitoring/merchant-map.tsx`, following `data-model.md` `Merchant.latitude`, `longitude`, and `isAlert`; disable the alert blink under `prefers-reduced-motion`
+- [X] T044 [US4] Build the merchant detail drawer with CIF, monthly sales, MDR scheme, and "Schedule Visit" action in `components/monitoring/merchant-drawer.tsx`, following `data-model.md` `Merchant.cif`, `monthlySales`, and `mdrPercent`
+- [X] T045 [US4] Build the route panel that takes selected alert merchants and shows the ordered route in `components/monitoring/route-panel.tsx`, using `planVisitRoute` from `src/domain/route.ts`; disable the action when no merchants are in range
+- [X] T046 [US4] Build the Monitoring tab in `components/monitoring/monitoring-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
 
 **Checkpoint**: User Story 4 works on its own.
 
@@ -156,13 +156,13 @@ route for three alert merchants starts at the branch and lists all three in orde
 **Independent Test**: Run both simulators with known inputs. Click "Apply This Product" and confirm
 the intake form opens with the matching type and product code.
 
-- [ ] T047 [P] [US5] Implement `estimateDepositReturn` and `compareEdcFeeSchemes` as pure functions in `src/domain/simulators.ts`, per `contracts/data-access.md`
-- [ ] T048 [US5] Add a `setIntakeDraft` action in `src/data/store.ts` that stores a product's type and code for the intake form to read, using `data-model.md` `Product.acquisitionType` and `Product.code`
-- [ ] T049 [US5] Build the product card with the "Apply This Product" action in `components/catalog/product-card.tsx`
-- [ ] T050 [US5] Build the deposit simulator with immediate recalculation in `components/catalog/deposit-simulator.tsx`
-- [ ] T051 [US5] Build the EDC fee simulator with side-by-side comparison in `components/catalog/edc-fee-simulator.tsx`
-- [ ] T052 [US5] Build the Catalog tab grouped by the five segments in `components/catalog/catalog-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
-- [ ] T053 [US5] Make the intake form read the pending draft from `setIntakeDraft` and pre-fill type and product code in `components/intake/intake-form.tsx`
+- [X] T047 [P] [US5] Implement `estimateDepositReturn` and `compareEdcFeeSchemes` as pure functions in `src/domain/simulators.ts`, per `contracts/data-access.md`
+- [X] T048 [US5] Add a `setIntakeDraft` action in `src/data/store.ts` that stores a product's type and code for the intake form to read, using `data-model.md` `Product.acquisitionType` and `Product.code`
+- [X] T049 [US5] Build the product card with the "Apply This Product" action in `components/catalog/product-card.tsx`
+- [X] T050 [US5] Build the deposit simulator with immediate recalculation in `components/catalog/deposit-simulator.tsx`
+- [X] T051 [US5] Build the EDC fee simulator with side-by-side comparison in `components/catalog/edc-fee-simulator.tsx`
+- [X] T052 [US5] Build the Catalog tab grouped by the five segments in `components/catalog/catalog-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
+- [X] T053 [US5] Make the intake form read the pending draft from `setIntakeDraft` and pre-fill type and product code in `components/intake/intake-form.tsx`
 
 **Checkpoint**: User Story 5 works on its own. Pre-fill from the catalog reaches the intake form.
 
@@ -175,11 +175,11 @@ the intake form opens with the matching type and product code.
 **Independent Test**: Print preview of the summary shows one A4 page with no clipped content. The
 exported workbook has three named sheets with the columns in `contracts/exports.md`.
 
-- [ ] T054 [P] [US6] Implement the executive summary view model with top-five truncation and omitted counts in `src/exports/summary-model.ts`, per `contracts/exports.md`
-- [ ] T055 [US6] Build the executive summary component and add `@page { size: A4; margin: 12mm }` print styles in `components/reports/executive-summary.tsx` and `app/globals.css`
-- [ ] T056 [US6] Implement the three-sheet workbook builder (`Branch Recap`, `Pipeline`, `Merchant/EDC`) with empty-data header rows in `src/exports/excel.ts`, per `contracts/exports.md`
-- [ ] T057 [US6] Build the export actions (print summary, download `.xlsx`) in `components/reports/export-actions.tsx`
-- [ ] T058 [US6] Build the Reports tab in `components/reports/reports-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
+- [X] T054 [P] [US6] Implement the executive summary view model with top-five truncation and omitted counts in `src/exports/summary-model.ts`, per `contracts/exports.md`
+- [X] T055 [US6] Build the executive summary component and add `@page { size: A4; margin: 12mm }` print styles in `components/reports/executive-summary.tsx` and `app/globals.css`
+- [X] T056 [US6] Implement the three-sheet workbook builder (`Branch Recap`, `Pipeline`, `Merchant/EDC`) with empty-data header rows in `src/exports/excel.ts`, per `contracts/exports.md`
+- [X] T057 [US6] Build the export actions (print summary, download `.xlsx`) in `components/reports/export-actions.tsx`
+- [X] T058 [US6] Build the Reports tab in `components/reports/reports-tab.tsx` and register it in `components/dashboard/tab-bar.tsx`
 
 **Checkpoint**: All six user stories work on their own.
 
@@ -189,13 +189,13 @@ exported workbook has three named sheets with the columns in `contracts/exports.
 
 **Purpose**: Static checks, manual scenario validation, and constitution compliance.
 
-- [ ] T059 Run `npx tsc --noEmit` and fix all errors across `src/` and `components/`
-- [ ] T060 [P] Run `npm run lint` and fix all reported issues
-- [ ] T061 Run `npm run build` and fix any build failures, including the client-only map import
-- [ ] T062 Run every scenario in `specs/001-acquisition-portal/quickstart.md` by hand in the running app and fix any failing acceptance scenario
-- [ ] T063 [P] Check the dashboard has no horizontal page scroll at 1024 px wide and that all tabs remain usable
-- [ ] T064 Confirm Principle III compliance: search the repository for test files and test frameworks (`find . -name "*.test.*" -not -path "./node_modules/*"`) and confirm none exist
-- [ ] T065 [P] Confirm every UI primitive is imported from `components/ui/` and no custom primitive duplicates a shadcn/ui component (Principle IV)
+- [X] T059 Run `npx tsc --noEmit` and fix all errors across `src/` and `components/`
+- [X] T060 [P] Run `npm run lint` and fix all reported issues
+- [X] T061 Run `npm run build` and fix any build failures, including the client-only map import
+- [X] T062 Run every scenario in `specs/001-acquisition-portal/quickstart.md` by hand in the running app and fix any failing acceptance scenario
+- [X] T063 [P] Check the dashboard has no horizontal page scroll at 1024 px wide and that all tabs remain usable
+- [X] T064 Confirm Principle III compliance: search the repository for test files and test frameworks (`find . -name "*.test.*" -not -path "./node_modules/*"`) and confirm none exist
+- [X] T065 [P] Confirm every UI primitive is imported from `components/ui/` and no custom primitive duplicates a shadcn/ui component (Principle IV)
 
 ---
 
