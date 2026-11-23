@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { CheckCircle2Icon, Loader2Icon, ShieldCheckIcon } from "lucide-react"
+import { CheckCircle2Icon, Loader2Icon, SearchIcon, ShieldCheckIcon, XCircleIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -43,6 +43,44 @@ export default function SubmitPage() {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submittedId, setSubmittedId] = useState<string | null>(null)
+
+  const [cifLoading, setCifLoading] = useState(false)
+  const [cifStatus, setCifStatus] = useState<{
+    state: "found" | "not_found" | "error"
+    name?: string
+    result?: string
+    message?: string
+  } | null>(null)
+
+  async function handleCifLookup() {
+    const raw = cif.trim()
+    if (!raw) return
+    setCifLoading(true)
+    setCifStatus(null)
+
+    // Simulated lookup to remote Core Banking / NBDS server
+    await new Promise((resolve) => setTimeout(resolve, 1100))
+
+    setCifLoading(false)
+    const lastDigit = raw.slice(-1)
+    if ("02468".includes(lastDigit)) {
+      setCifStatus({
+        state: "found",
+        name: "Nasabah Valid",
+        result: "New CIF (GMM Eligible)",
+      })
+    } else if ("13579".includes(lastDigit)) {
+      setCifStatus({
+        state: "found",
+        name: "Nasabah Eksisting",
+        result: "Existing CIF (Needs Confirmation)",
+      })
+    } else {
+      setCifStatus({
+        state: "not_found",
+      })
+    }
+  }
 
   const verifiedStaff = useMemo(() => {
     const cleaned = nip.replace(/\D/g, "")
@@ -263,15 +301,61 @@ export default function SubmitPage() {
                 <Label htmlFor="cif" className="text-sm font-semibold text-foreground">
                   Nomor CIF (Opsional)
                 </Label>
-                <Input
-                  id="cif"
-                  placeholder="Contoh: 1002003001"
-                  value={cif}
-                  onChange={(e) => setCif(e.target.value)}
-                  className="h-11 rounded-xl border-input bg-background px-3.5 text-sm tabular-nums shadow-xs"
-                />
+                <div className="flex items-center gap-2">
+                  <Input
+                    id="cif"
+                    placeholder="Contoh: 1002003001"
+                    value={cif}
+                    onChange={(e) => {
+                      setCif(e.target.value)
+                      setCifStatus(null)
+                    }}
+                    className="h-11 rounded-xl border-input bg-background px-3.5 text-sm tabular-nums shadow-xs"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={!cif.trim() || cifLoading}
+                    onClick={handleCifLookup}
+                    className="h-11 shrink-0 rounded-xl px-4 text-sm font-semibold shadow-xs"
+                  >
+                    {cifLoading ? (
+                      <>
+                        <Loader2Icon className="size-4 animate-spin" data-icon="inline-start" />
+                        Mencari di Server...
+                      </>
+                    ) : (
+                      <>
+                        <SearchIcon className="size-4" data-icon="inline-start" />
+                        Validate
+                      </>
+                    )}
+                  </Button>
+                </div>
+                {cifLoading ? (
+                  <p className="text-xs font-medium text-amber-600">
+                    <Loader2Icon className="mr-1 inline size-3 animate-spin align-[-2px]" />
+                    Memeriksa CIF ke sistem NBDS silang bank...
+                  </p>
+                ) : null}
+                {cifStatus?.state === "found" ? (
+                  <div className="flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-medium text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-400">
+                    <CheckCircle2Icon className="size-3.5" />
+                    CIF terdaftar: {cifStatus.name} · Status {cifStatus.result}
+                  </div>
+                ) : null}
+                {cifStatus?.state === "not_found" ? (
+                  <div className="flex items-center gap-1.5 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-700 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-400">
+                    <XCircleIcon className="size-3.5" />
+                    CIF tidak ditemukan di sistem. Nasabah akan diproses sebagai kandidat New CIF.
+                  </div>
+                ) : null}
+                {cifStatus?.state === "error" ? (
+                  <p className="text-xs font-medium text-rose-600">{cifStatus.message}</p>
+                ) : null}
+                {errors.cif ? <p className="text-xs font-medium text-rose-600">{errors.cif}</p> : null}
                 <p className="text-xs text-muted-foreground">
-                  Kosongkan bila calon nasabah baru (New CIF).
+                  Kosongkan bila calon nasabah baru (New CIF). Klik Validate untuk cek ke server pusat.
                 </p>
               </div>
 
