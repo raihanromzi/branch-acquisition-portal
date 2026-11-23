@@ -20,6 +20,13 @@ $ARGUMENTS
 
 You **MUST** consider the user input before proceeding (if not empty).
 
+## Step 0: Read CLAUDE.md (every run)
+
+Before any other step, read `CLAUDE.md` at the repository root and follow it. It is the entry point
+for this project. Then read `DESIGN.md` before writing any UI. Where a step below conflicts with
+`CLAUDE.md` or the constitution, `CLAUDE.md` and the constitution win. In particular, skip the
+test-first steps (no tests, per Principle III).
+
 ## Pre-Execution Checks
 
 **Check for extension hooks (before implementation)**:

@@ -7,18 +7,27 @@ Guidance for Claude Code working in this repository.
 Branch Acquisition & Monitoring Portal for Bank Mandiri sales, branch, and supervisor staff. The
 v1 deliverable is a frontend-only prototype with realistic sample data. There is no backend.
 
+This file is the entry point. Claude Code loads it at the start of every session, and
+`/speckit-implement` reads it before any task runs. Read the sources below in this order.
+
 Source of truth, in priority order:
 1. `.specify/memory/constitution.md`: non-negotiable principles. Read this first.
 2. `specs/001-acquisition-portal/spec.md`: user stories and requirements.
 3. `specs/001-acquisition-portal/plan.md`, `research.md`, `data-model.md`, `contracts/`: design decisions.
 4. `specs/001-acquisition-portal/tasks.md`: ordered implementation work.
 5. `docs/specs.md`: original product description (Indonesian). Consult it for domain terms.
-6. `DESIGN.md`, `DEPLOYMENT.md`: reference docs, if present.
+6. `DESIGN.md`: visual and component rules. **Read it before any UI change.** It owns the theme
+   tokens, status colors, layout, and which shadcn primitive to use per screen.
+7. `DEPLOYMENT.md`: deployment steps, if present.
 
 Paths in this file come from `specs/001-acquisition-portal/plan.md`. If a path is missing or moved,
 `plan.md` wins. Update this file to match.
 
 If a request conflicts with the constitution, stop and say so. Do not work around it.
+
+**Precedence.** When a Spec Kit template or skill step conflicts with this file or the constitution,
+this file and the constitution win. For example, the implement workflow's test-first steps do not
+apply: this project has no tests (Principle III).
 
 ## Stack
 
