@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.8",
+    "@neondatabase/serverless": "^1.2.1",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",
     "leaflet": "^1.9.4",

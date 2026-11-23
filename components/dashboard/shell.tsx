@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { SearchIcon, SparklesIcon } from "lucide-react"
 
 import { ApprovalTab } from "@/components/approval/approval-tab"
@@ -13,6 +13,7 @@ import { PipelineTab } from "@/components/pipeline/pipeline-tab"
 import { ReportsTab } from "@/components/reports/reports-tab"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { syncRemoteSubmissions } from "@/src/data/store"
 import {
   Sidebar,
   SidebarContent,
@@ -32,6 +33,14 @@ import {
 export function DashboardShell() {
   const [activeModule, setActiveModule] = useState<ModuleId>("intake")
   const [query, setQuery] = useState("")
+
+  useEffect(() => {
+    void syncRemoteSubmissions()
+    const timer = setInterval(() => {
+      void syncRemoteSubmissions()
+    }, 8000)
+    return () => clearInterval(timer)
+  }, [])
 
   const filteredModules = useMemo(() => {
     const term = query.trim().toLowerCase()

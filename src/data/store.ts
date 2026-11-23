@@ -51,6 +51,31 @@ function commit(next: PortalState) {
 export function hydrateStore() {
   state = loadState(seedState())
   listeners.forEach((listener) => listener())
+  if (typeof window !== "undefined") {
+    void syncRemoteSubmissions()
+  }
+}
+
+export async function syncRemoteSubmissions() {
+  if (typeof window === "undefined") return
+  try {
+    const res = await fetch("/api/submissions")
+    const data = (await res.json()) as { ok?: boolean; submissions?: AcquisitionSubmission[] }
+    if (!data.ok || !Array.isArray(data.submissions)) return
+    const remote = data.submissions
+    if (remote.length === 0) return
+
+    const existingIds = new Set(state.submissions.map((s) => s.id))
+    const incoming = remote.filter((s) => !existingIds.has(s.id))
+    if (incoming.length > 0) {
+      commit({
+        ...state,
+        submissions: [...incoming, ...state.submissions],
+      })
+    }
+  } catch {
+    // Offline or network error: retain local state
+  }
 }
 
 export function subscribe(listener: () => void) {

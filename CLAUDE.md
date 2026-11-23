@@ -72,8 +72,10 @@ No test runner, by design. Single-test commands do not apply.
 - **Thresholds** (for example the merchant alert limits) are named constants, not literals.
 - **Strict TypeScript** with no `any` unless justified in a comment. Remove dead code. Remove
   duplication on the third occurrence (constitution Principle II).
-- **Data stays local.** No external services or databases. Persist to localStorage through the store
-  in `src/data/`. Components must not read or write localStorage directly.
+- **Data stays local (with intake exception).** Core portal modules persist to localStorage through the store
+  in `src/data/`. As amended in constitution v1.1.0, the public mobile sales intake (`/submit`) uses a minimal
+  shared persistence layer so field submissions reach the dashboard approval queue across devices.
+  Components must not read or write localStorage directly.
 - **Map is client-only.** Load Leaflet with a dynamic import and `ssr: false`.
 
 ## Workflow
