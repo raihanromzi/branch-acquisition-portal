@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { advancePipelineStage, getCatalog } from "@/src/data/store"
+import { getCatalog } from "@/src/data/store"
 import { useStore } from "@/src/data/use-store"
 import type { PipelineStage } from "@/src/types/entities"
 
@@ -169,7 +169,6 @@ export function PipelineTab() {
                 entry={selectedEntry}
                 selectedStage={effectiveStage}
                 onSelectStage={setSelectedStage}
-                onAdvance={() => advancePipelineStage(selectedEntry.id)}
               />
               <StageInspector entry={selectedEntry} selectedStage={effectiveStage} />
             </>
