@@ -137,7 +137,7 @@ export function DashboardShell() {
             </Card>
           </SidebarFooter>
         </Sidebar>
-        <SidebarInset className="min-w-0 bg-background">
+        <SidebarInset className="min-w-0 overflow-hidden bg-background">
           <Header breadcrumb={activeModuleMeta.label} />
           <main className="flex flex-col gap-5 p-5 lg:p-7">
             <div className="flex flex-col gap-1">
