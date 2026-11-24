@@ -35,12 +35,10 @@ apply: this project has no tests (Principle III).
 - Tailwind CSS and shadcn/ui (Radix UI primitives, source owned in `components/ui/`)
 - Lucide React for icons
 - Leaflet, react-leaflet, leaflet.markercluster for the map (client-only)
-- SheetJS (`xlsx`) for Excel export
 
 ## Where code goes
 
-- Module UI: `components/<module>/` (intake, approval, pipeline, monitoring; catalog and reports are
-  kept in the repo but off the sidebar menu)
+- Module UI: `components/<module>/` (overview, intake, approval, pipeline, monitoring)
 - Shared primitives: `components/ui/` (shadcn-generated, do not hand-edit)
 - Pure domain rules: `src/domain/*.ts`, no React imports
 - Store and persistence: `src/data/store.ts`, `src/data/persistence.ts`

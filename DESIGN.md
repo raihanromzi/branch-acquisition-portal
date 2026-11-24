@@ -93,7 +93,8 @@ mode) with the 600 shade for text. Never use color alone. Each badge also carrie
 
 - **App shell:** shadcn `Sidebar` (dark, `variant="inset"`) for the Dashboard overview and the
   modules Intake, Approval, Pipeline and Monitoring. Clicking a menu item shows that module in
-  the inset content panel. The Catalog and Reports modules are off the menu for now.
+  the inset content panel. Catalog and Reports are removed for now (see git history before
+  the removal commit to restore them).
 - **Open tabs:** a shadcn `Tabs` strip at the top of the content area. Closing a tab uses an
   icon button with an accessible label.
 - **Inside a module:** use `Card` for each logical block. Use `Tabs` for sub-views (for example
@@ -133,11 +134,6 @@ Icons: Lucide React, `h-4 w-4` in buttons and table rows, `h-5 w-5` in navigatio
 - **Map:** the Leaflet canvas is the exception to shadcn primitives. Its surrounding controls,
   legend, and drawer use shadcn components. Alert markers use the `--danger` token. Respect
   `prefers-reduced-motion` (no blink).
-- **Catalog (off the menu):** product `Card`s grouped by segment. Simulators are `Card`s with
-  `Input` and a live result. "Apply This Product" is a `Button` that opens the intake tab
-  pre-filled. Kept here so the module can return without redesign.
-- **Executive summary (off the menu):** a print-only layout, A4 (`@page { size: A4; margin: 12mm }`).
-  No shadows, no sidebar, one page (spec FR-026).
 
 ## Status and feedback
 

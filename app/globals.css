@@ -147,28 +147,6 @@
   --invert-foreground: var(--color-zinc-50);
 }
 
-@page {
-  size: A4;
-  margin: 12mm;
-}
-
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  .print-summary,
-  .print-summary * {
-    visibility: visible;
-  }
-  .print-summary {
-    position: absolute;
-    inset: 0;
-  }
-  .no-print {
-    display: none;
-  }
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
