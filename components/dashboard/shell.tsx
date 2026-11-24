@@ -68,35 +68,35 @@ export function DashboardShell() {
   return (
     <TooltipProvider>
       <SidebarProvider>
-        <Sidebar collapsible="icon" className="border-r border-border">
+        <Sidebar variant="inset" collapsible="icon">
           <SidebarHeader className="flex flex-col gap-3 p-4">
             <div className="flex items-center gap-2.5 group-data-[collapsible=icon]:justify-center">
-              <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-xs font-semibold tracking-tight text-primary-foreground">
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary text-xs font-semibold tracking-tight text-sidebar-primary-foreground">
                 BM
               </div>
               <div className="min-w-0 group-data-[collapsible=icon]:hidden">
                 <p className="truncate text-sm font-semibold tracking-tight">
                   Bank Mandiri
                 </p>
-                <p className="truncate text-xs text-muted-foreground">
+                <p className="truncate text-xs text-sidebar-foreground/60">
                   Acquisition Portal
                 </p>
               </div>
             </div>
             <div className="relative group-data-[collapsible=icon]:hidden">
-              <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
+              <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-sidebar-foreground/50" />
               <Input
                 type="search"
                 placeholder="Search modules..."
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                className="h-8 pl-8 text-xs"
+                className="h-8 border-sidebar-border bg-sidebar-accent pl-8 text-xs text-sidebar-foreground placeholder:text-sidebar-foreground/50"
               />
             </div>
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel className="text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
+              <SidebarGroupLabel className="text-[11px] font-medium tracking-wide text-sidebar-foreground/50 uppercase">
                 Dashboards & Workflows
               </SidebarGroupLabel>
               <SidebarGroupContent>
@@ -124,7 +124,7 @@ export function DashboardShell() {
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter className="p-3">
-            <Card className="rounded-lg border-border/60 bg-muted/30 group-data-[collapsible=icon]:hidden">
+            <Card className="rounded-lg border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground group-data-[collapsible=icon]:hidden">
               <CardContent className="flex flex-col gap-1.5 p-3">
                 <div className="flex items-center gap-1.5 text-xs font-medium">
                   <SparklesIcon className="size-3.5 text-muted-foreground" />
