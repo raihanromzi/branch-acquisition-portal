@@ -1,14 +1,14 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { CheckCircle2Icon, SearchIcon, SlidersHorizontalIcon } from "lucide-react"
+import { SearchIcon, SlidersHorizontalIcon } from "lucide-react"
 
 import { Badge } from "@/components/reui/badge"
+import { Frame, FrameHeader, FramePanel, FrameTitle } from "@/components/reui/frame"
 import { BatchClosingPanel } from "@/components/pipeline/batch-closing-panel"
 import { PipelineTimeline } from "@/components/pipeline/pipeline-timeline"
 import { StageInspector } from "@/components/pipeline/stage-inspector"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { getCatalog } from "@/src/data/store"
@@ -109,21 +109,22 @@ export function PipelineTab() {
       </div>
 
       {view === "batch" ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>Batch closing</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <Frame>
+          <FrameHeader>
+            <FrameTitle>Batch closing</FrameTitle>
+          </FrameHeader>
+          <FramePanel>
             <BatchClosingPanel entries={pipeline} />
-          </CardContent>
-        </Card>
+          </FramePanel>
+        </Frame>
       ) : (
         <div className="grid gap-4 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[240px_minmax(0,1fr)_320px]">
-          <Card className="gap-2 p-3">
-            <p className="px-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Pipelines ({filtered.length})
-            </p>
-            <div className="flex flex-col gap-1.5 overflow-y-auto">
+          <Frame>
+            <FrameHeader>
+              <FrameTitle>Customers</FrameTitle>
+              <p className="text-xs text-muted-foreground tabular-nums">{filtered.length} in view</p>
+            </FrameHeader>
+            <FramePanel className="flex max-h-[70vh] flex-col gap-1.5 overflow-y-auto">
               {filtered.map((entry) => {
                 const active = entry.id === selectedEntry?.id
                 const branch = branches.find((item) => item.id === entry.branchId)
@@ -157,11 +158,11 @@ export function PipelineTab() {
               })}
               {filtered.length === 0 ? (
                 <p className="p-4 text-center text-xs text-muted-foreground">
-                  No matching pipeline entries.
+                  No customers match these filters.
                 </p>
               ) : null}
-            </div>
-          </Card>
+            </FramePanel>
+          </Frame>
 
           {selectedEntry ? (
             <>
@@ -175,10 +176,11 @@ export function PipelineTab() {
               </div>
             </>
           ) : (
-            <div className="flex items-center justify-center rounded-xl border border-dashed border-border p-12 text-sm text-muted-foreground lg:col-span-2">
-              <CheckCircle2Icon className="mr-2 size-4" />
-              Select a pipeline customer from the list.
-            </div>
+            <Frame className="lg:col-span-2">
+              <FramePanel className="flex items-center justify-center text-sm text-muted-foreground">
+                Select a customer from the list.
+              </FramePanel>
+            </Frame>
           )}
         </div>
       )}

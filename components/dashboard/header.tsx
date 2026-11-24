@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { CalendarDaysIcon, RotateCcwIcon } from "lucide-react"
 
 import { Badge } from "@/components/reui/badge"
@@ -8,6 +9,11 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 import { reset } from "@/src/data/store"
 
 export function Header({ breadcrumb }: { breadcrumb: string }) {
+  const [today, setToday] = useState("")
+  useEffect(() => {
+    setToday(new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }))
+  }, [])
+
   return (
     <header className="flex min-h-14 items-center justify-between gap-4 border-b border-border bg-background px-5 lg:px-7">
       <div className="flex min-w-0 items-center gap-2 text-sm">
@@ -23,7 +29,7 @@ export function Header({ breadcrumb }: { breadcrumb: string }) {
       <div className="flex items-center gap-2">
         <Badge variant="outline" className="hidden h-8 gap-1.5 px-2.5 sm:inline-flex">
           <CalendarDaysIcon aria-hidden="true" />
-          23 Nov 2026
+          <span>{today}</span>
         </Badge>
         <Button type="button" size="sm" variant="outline" onClick={() => reset()}>
           <RotateCcwIcon data-icon="inline-start" />

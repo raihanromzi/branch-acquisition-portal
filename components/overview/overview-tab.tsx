@@ -4,8 +4,8 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import { STATUS_LABEL } from "@/components/intake/status"
 import { Badge, type BadgeProps } from "@/components/reui/badge"
+import { Frame, FrameHeader, FramePanel, FrameTitle } from "@/components/reui/frame"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   ChartContainer,
   ChartLegend,
@@ -15,7 +15,6 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart"
 import { Progress } from "@/components/ui/progress"
-import { Separator } from "@/components/ui/separator"
 import { formatRupiah } from "@/src/domain/currency"
 import { STAGE_LABEL, STAGE_ORDER } from "@/src/domain/pipeline"
 import { getCatalog } from "@/src/data/store"
@@ -23,15 +22,8 @@ import { useStore } from "@/src/data/use-store"
 import type { AcquisitionStatus, BranchKpi, PipelineCategory } from "@/src/types/entities"
 import { CalendarDaysIcon } from "lucide-react"
 
-/** Target achievement at or above this share reads as on track. */
+/** Target achievement at or above this share counts as on track. */
 const ON_TRACK_TARGET_PERCENT = 90
-
-const STATUS_BADGE: Record<AcquisitionStatus, BadgeProps["variant"]> = {
-  WAITING_APPROVAL: "info-light",
-  ACCEPTED_GMM: "success-light",
-  REJECTED: "destructive-light",
-  COMPLETED: "success-light",
-}
 
 const CATEGORIES: PipelineCategory[] = ["PAYROLL", "PRIORITY", "BUSINESS", "MERCHANT"]
 
@@ -46,33 +38,35 @@ const stageConfig = {
   MERCHANT: { label: "Merchant", color: "var(--chart-4)" },
 } satisfies ChartConfig
 
-function KpiCard({
+const STATUS_BADGE: Record<AcquisitionStatus, BadgeProps["variant"]> = {
+  WAITING_APPROVAL: "info-light",
+  ACCEPTED_GMM: "success-light",
+  REJECTED: "destructive-light",
+  COMPLETED: "success-light",
+}
+
+function KpiTile({
   label,
   value,
+  note,
   badge,
-  badgeVariant,
-  footnote,
 }: {
   label: string
   value: string
-  badge: string
-  badgeVariant: BadgeProps["variant"]
-  footnote: string
+  note?: string
+  badge?: { label: string; variant: BadgeProps["variant"] }
 }) {
   return (
-    <Card className="gap-4">
-      <CardContent className="flex flex-col gap-4">
-        <h3 className="text-sm font-medium text-muted-foreground">{label}</h3>
-        <div className="flex flex-col gap-2.5">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="text-2xl font-medium tracking-tight tabular-nums">{value}</span>
-            <Badge variant={badgeVariant}>{badge}</Badge>
-          </div>
-          <Separator />
-          <p className="text-xs text-muted-foreground">{footnote}</p>
+    <Frame>
+      <FramePanel className="flex flex-col gap-3">
+        <p className="text-sm text-muted-foreground">{label}</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-2xl font-semibold tracking-tight tabular-nums">{value}</span>
+          {badge ? <Badge variant={badge.variant}>{badge.label}</Badge> : null}
         </div>
-      </CardContent>
-    </Card>
+        {note ? <p className="text-xs text-muted-foreground">{note}</p> : null}
+      </FramePanel>
+    </Frame>
   )
 }
 
@@ -118,7 +112,7 @@ export function OverviewTab() {
   })
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col gap-0.5">
           <p className="text-sm font-medium">{branch?.name ?? "Branch"}</p>
@@ -132,79 +126,60 @@ export function OverviewTab() {
 
       {branchKpi ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <KpiCard
-            label="Savings Portfolio"
+          <KpiTile
+            label="Savings portfolio"
             value={formatRupiah(branchKpi.savingsPortfolio)}
-            badge={`${branchKpi.targetAchievementPercent}% of target`}
-            badgeVariant={branchKpi.targetAchievementPercent >= ON_TRACK_TARGET_PERCENT ? "success-light" : "warning-light"}
-            footnote="Branch savings portfolio for the period"
+            badge={
+              branchKpi.targetAchievementPercent >= ON_TRACK_TARGET_PERCENT
+                ? { label: `${branchKpi.targetAchievementPercent}% on track`, variant: "success-light" }
+                : { label: `${branchKpi.targetAchievementPercent}% of target`, variant: "warning-light" }
+            }
           />
-          <KpiCard
-            label="Merchant Growth"
-            value={`${branchKpi.merchantGrowthPercent}%`}
-            badge="Growth"
-            badgeVariant="info-light"
-            footnote={`${branchKpi.livinMerchantActivity} active Livin' Merchant`}
-          />
-          <KpiCard
-            label="EDC Penetration"
-            value={`${branchKpi.edcPenetrationPercent}%`}
-            badge="Penetration"
-            badgeVariant="info-light"
-            footnote={`${branchKpi.wholesaleUnits} wholesale units (CB)`}
-          />
-          <KpiCard
-            label="Waiting for Approval"
+          <KpiTile label="Merchant growth" value={`${branchKpi.merchantGrowthPercent}%`} note={`${branchKpi.livinMerchantActivity} active Livin' Merchant`} />
+          <KpiTile label="EDC penetration" value={`${branchKpi.edcPenetrationPercent}%`} note={`${branchKpi.wholesaleUnits} wholesale units (CB)`} />
+          <KpiTile
+            label="Waiting for approval"
             value={String(pending)}
-            badge={`${submissions.length} submitted`}
-            badgeVariant={pending > 0 ? "warning-light" : "success-light"}
-            footnote="Submissions in the approval queue"
+            badge={pending > 0 ? { label: "Needs review", variant: "warning-light" } : undefined}
           />
         </div>
       ) : (
-        <Card>
-          <CardContent>
+        <Frame>
+          <FramePanel>
             <p className="text-sm text-muted-foreground">No KPI data for this branch yet.</p>
-          </CardContent>
-        </Card>
+          </FramePanel>
+        </Frame>
       )}
 
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
-        <Card>
-          <CardHeader>
-            <CardTitle>Cumulative submissions</CardTitle>
-            <CardDescription>Running total of acquisition submissions by day</CardDescription>
-          </CardHeader>
-          <CardContent>
+        <Frame className="min-w-0">
+          <FrameHeader>
+            <FrameTitle>Cumulative submissions</FrameTitle>
+          </FrameHeader>
+          <FramePanel>
             <ChartContainer config={trendConfig} className="h-64 w-full">
               <AreaChart accessibilityLayer data={submissionsPerDay} margin={{ top: 12, right: 8, bottom: 0, left: 0 }}>
-                <defs>
-                  <linearGradient id="overview-submissions-fill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--color-submissions)" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="var(--color-submissions)" stopOpacity={0.05} />
-                  </linearGradient>
-                </defs>
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />
                 <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
                 <Area
                   dataKey="submissions"
                   type="monotone"
-                  fill="url(#overview-submissions-fill)"
+                  fill="var(--color-submissions)"
+                  fillOpacity={0.1}
                   stroke="var(--color-submissions)"
                   strokeWidth={2}
                 />
               </AreaChart>
             </ChartContainer>
-          </CardContent>
-        </Card>
+          </FramePanel>
+        </Frame>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Approval summary</CardTitle>
-            <CardDescription>Share of submissions by status</CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4">
+        <Frame className="min-w-0">
+          <FrameHeader>
+            <FrameTitle>Approval summary</FrameTitle>
+          </FrameHeader>
+          <FramePanel className="flex flex-col gap-4">
             {(Object.keys(STATUS_LABEL) as AcquisitionStatus[]).map((status) => {
               const count = submissions.filter((item) => item.status === status).length
               const share = submissions.length > 0 ? Math.round((count / submissions.length) * 100) : 0
@@ -212,24 +187,21 @@ export function OverviewTab() {
                 <div key={status} className="flex flex-col gap-1.5">
                   <div className="flex items-center justify-between gap-3">
                     <Badge variant={STATUS_BADGE[status]}>{STATUS_LABEL[status]}</Badge>
-                    <span className="text-sm font-medium tabular-nums">
-                      {count} · {share}%
-                    </span>
+                    <span className="text-sm font-medium tabular-nums">{count}</span>
                   </div>
                   <Progress value={share} aria-label={`${STATUS_LABEL[status]} share`} />
                 </div>
               )
             })}
-          </CardContent>
-        </Card>
+          </FramePanel>
+        </Frame>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Pipeline by stage and category</CardTitle>
-          <CardDescription>Customers in each acquisition stage, split by category</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <Frame className="min-w-0">
+        <FrameHeader>
+          <FrameTitle>Pipeline by stage</FrameTitle>
+        </FrameHeader>
+        <FramePanel>
           <ChartContainer config={stageConfig} className="h-72 w-full">
             <BarChart accessibilityLayer data={stageData}>
               <CartesianGrid vertical={false} />
@@ -241,8 +213,8 @@ export function OverviewTab() {
               ))}
             </BarChart>
           </ChartContainer>
-        </CardContent>
-      </Card>
+        </FramePanel>
+      </Frame>
     </div>
   )
 }

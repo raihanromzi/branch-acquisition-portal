@@ -6,7 +6,7 @@ import { KpiCards } from "@/components/monitoring/kpi-cards"
 import { MerchantDrawer } from "@/components/monitoring/merchant-drawer"
 import { MerchantMapLazy } from "@/components/monitoring/merchant-map-lazy"
 import { RoutePanel } from "@/components/monitoring/route-panel"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Frame, FrameHeader, FramePanel, FrameTitle } from "@/components/reui/frame"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { getCatalog } from "@/src/data/store"
@@ -30,18 +30,16 @@ export function MonitoringTab() {
       </div>
       {branchKpi ? <KpiCards kpi={branchKpi} /> : null}
       <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
-        <Card>
-          <CardHeader><CardTitle>Merchant map</CardTitle></CardHeader>
-          <CardContent>
+        <Frame>
+          <FrameHeader><FrameTitle>Merchant map</FrameTitle></FrameHeader>
+          <FramePanel>
             <MerchantMapLazy merchants={branchMerchants} onSelect={setSelected} />
-          </CardContent>
-        </Card>
-        <div className="flex flex-col gap-4">
-          <Card>
-            <CardHeader><CardTitle>Visit route</CardTitle></CardHeader>
-            <CardContent>{branch ? <RoutePanel branch={branch} merchants={branchMerchants} /> : null}</CardContent>
-          </Card>
-        </div>
+          </FramePanel>
+        </Frame>
+        <Frame>
+          <FrameHeader><FrameTitle>Visit route</FrameTitle></FrameHeader>
+          <FramePanel>{branch ? <RoutePanel branch={branch} merchants={branchMerchants} /> : null}</FramePanel>
+        </Frame>
       </div>
       <MerchantDrawer
         merchant={selected}

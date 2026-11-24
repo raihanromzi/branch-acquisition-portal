@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import { SearchIcon, SparklesIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react"
 
 import { ApprovalTab } from "@/components/approval/approval-tab"
 import { Header } from "@/components/dashboard/header"
@@ -10,17 +10,14 @@ import { OverviewTab } from "@/components/overview/overview-tab"
 import { IntakeTab } from "@/components/intake/intake-tab"
 import { MonitoringTab } from "@/components/monitoring/monitoring-tab"
 import { PipelineTab } from "@/components/pipeline/pipeline-tab"
-import { Card, CardContent } from "@/components/ui/card"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Input } from "@/components/ui/input"
 import { syncRemoteSubmissions } from "@/src/data/store"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
@@ -92,9 +89,6 @@ export function DashboardShell() {
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel className="text-[11px] font-medium tracking-wide text-sidebar-foreground/50 uppercase">
-                Dashboards & Workflows
-              </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {filteredModules.map((item) => (
@@ -119,33 +113,10 @@ export function DashboardShell() {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
-          <SidebarFooter className="p-3">
-            <Card className="rounded-lg border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-              <CardContent className="flex flex-col gap-1.5 p-3">
-                <div className="flex items-center gap-1.5 text-xs font-medium">
-                  <SparklesIcon className="size-3.5 text-muted-foreground" />
-                  <span>Prototype Mode</span>
-                </div>
-                <p className="text-[11px] text-muted-foreground">
-                  Local sample data for all branch workflows.
-                </p>
-              </CardContent>
-            </Card>
-          </SidebarFooter>
         </Sidebar>
         <SidebarInset className="min-w-0 overflow-hidden bg-background">
           <Header breadcrumb={activeModuleMeta.label} />
-          <main className="flex flex-col gap-5 p-5 lg:p-7">
-            <div className="flex flex-col gap-1">
-              <h1 className="text-xl font-semibold tracking-tight">
-                {activeModuleMeta.label}
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                {activeModuleMeta.description}
-              </p>
-            </div>
-            {panel[activeModule]}
-          </main>
+          <main className="flex flex-col gap-4 p-5 lg:p-7">{panel[activeModule]}</main>
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>
