@@ -39,7 +39,8 @@ apply: this project has no tests (Principle III).
 
 ## Where code goes
 
-- Module UI: `components/<module>/` (intake, approval, pipeline, monitoring, catalog, reports)
+- Module UI: `components/<module>/` (intake, approval, pipeline, monitoring; catalog and reports are
+  kept in the repo but off the sidebar menu)
 - Shared primitives: `components/ui/` (shadcn-generated, do not hand-edit)
 - Pure domain rules: `src/domain/*.ts`, no React imports
 - Store and persistence: `src/data/store.ts`, `src/data/persistence.ts`
