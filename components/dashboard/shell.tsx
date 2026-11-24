@@ -4,14 +4,12 @@ import { useEffect, useMemo, useState } from "react"
 import { SearchIcon, SparklesIcon } from "lucide-react"
 
 import { ApprovalTab } from "@/components/approval/approval-tab"
-import { CatalogTab } from "@/components/catalog/catalog-tab"
 import { Header } from "@/components/dashboard/header"
 import { MODULES, type ModuleId } from "@/components/dashboard/modules"
 import { OverviewTab } from "@/components/overview/overview-tab"
 import { IntakeTab } from "@/components/intake/intake-tab"
 import { MonitoringTab } from "@/components/monitoring/monitoring-tab"
 import { PipelineTab } from "@/components/pipeline/pipeline-tab"
-import { ReportsTab } from "@/components/reports/reports-tab"
 import { Card, CardContent } from "@/components/ui/card"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Input } from "@/components/ui/input"
@@ -61,8 +59,6 @@ export function DashboardShell() {
     approval: <ApprovalTab />,
     pipeline: <PipelineTab />,
     monitoring: <MonitoringTab />,
-    catalog: <CatalogTab onApply={() => setActiveModule("intake")} />,
-    reports: <ReportsTab />,
   }
 
   return (

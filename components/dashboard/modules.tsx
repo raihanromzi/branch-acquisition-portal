@@ -1,9 +1,7 @@
 import {
   ClipboardListIcon,
-  FileSpreadsheetIcon,
   LayoutDashboardIcon,
   MapIcon,
-  PackageIcon,
   ShieldCheckIcon,
   WorkflowIcon,
   type LucideIcon,
@@ -39,18 +37,6 @@ export const MODULES = [
     label: "Monitoring",
     description: "View branch KPIs and merchant activity.",
     icon: MapIcon,
-  },
-  {
-    id: "catalog",
-    label: "Catalog",
-    description: "Present products and calculate simulations.",
-    icon: PackageIcon,
-  },
-  {
-    id: "reports",
-    label: "Reports",
-    description: "Print executive summaries and export data.",
-    icon: FileSpreadsheetIcon,
   },
 ] as const satisfies readonly {
   id: string
