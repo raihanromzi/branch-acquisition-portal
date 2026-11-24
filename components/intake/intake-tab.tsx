@@ -4,7 +4,7 @@ import { useState } from "react"
 import { CheckIcon, CopyIcon, ExternalLinkIcon, SmartphoneIcon } from "lucide-react"
 
 import { IntakeForm } from "@/components/intake/intake-form"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/components/reui/alert"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 

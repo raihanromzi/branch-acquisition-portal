@@ -23,3 +23,11 @@ export function selectBatchClosable(
     (entry) => entry.visitStatus === "SCHEDULED" && entry.scheduledDate === today,
   )
 }
+
+export const STAGE_LABEL: Record<PipelineStage, string> = {
+  PROSPECTING: "Prospecting",
+  PITCHING: "Pitching",
+  DOCUMENTS: "Documents",
+  MOU: "MoU / Agreement",
+  ACQUISITION: "Acquisition / Live",
+}

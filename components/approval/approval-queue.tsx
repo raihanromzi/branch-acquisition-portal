@@ -1,12 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import { type ColumnDef, useTable } from "@tanstack/react-table"
 import { RefreshCwIcon } from "lucide-react"
 
 import { NbdsLog } from "@/components/approval/nbds-log"
 import { StatusActions } from "@/components/approval/status-actions"
 import { STATUS_LABEL } from "@/components/intake/status"
-import { Badge } from "@/components/ui/badge"
+import { Badge, type BadgeProps } from "@/components/reui/badge"
+import {
+  DataGrid,
+  DataGridContainer,
+  dataGridFeatures,
+  type DataGridFeatures,
+} from "@/components/reui/data-grid/data-grid"
+import { DataGridTable } from "@/components/reui/data-grid/data-grid-table"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import {
@@ -17,17 +25,52 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
 import { syncRemoteSubmissions } from "@/src/data/store"
 import { useStore } from "@/src/data/use-store"
-import type { AcquisitionStatus } from "@/src/types/entities"
+import type { AcquisitionStatus, AcquisitionSubmission } from "@/src/types/entities"
+
+/** Status tokens from DESIGN.md: success, warning, danger. Text label always shown. */
+const STATUS_BADGE: Record<AcquisitionStatus, BadgeProps["variant"]> = {
+  WAITING_APPROVAL: "info-light",
+  ACCEPTED_GMM: "success-light",
+  REJECTED: "destructive-light",
+  COMPLETED: "success-light",
+}
+
+const columns: ColumnDef<DataGridFeatures, AcquisitionSubmission>[] = [
+  {
+    accessorKey: "customerName",
+    header: "Customer",
+    cell: ({ row }) => <span className="font-medium">{row.original.customerName}</span>,
+  },
+  {
+    accessorKey: "nip",
+    header: "NIP",
+    cell: ({ row }) => <span className="tabular-nums">{row.original.nip}</span>,
+  },
+  {
+    accessorKey: "nbdsResult",
+    header: "NBDS",
+    cell: ({ row }) => <NbdsLog result={row.original.nbdsResult} />,
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => (
+      <Badge variant={STATUS_BADGE[row.original.status]}>{STATUS_LABEL[row.original.status]}</Badge>
+    ),
+  },
+  {
+    accessorKey: "note",
+    header: "Note",
+    cell: ({ row }) => row.original.note ?? "—",
+  },
+  {
+    id: "action",
+    header: "Action",
+    cell: ({ row }) => <StatusActions submission={row.original} />,
+  },
+]
 
 export function ApprovalQueue() {
   const { submissions } = useStore()
@@ -40,7 +83,17 @@ export function ApprovalQueue() {
     setSyncing(false)
   }
 
-  const rows = submissions.filter((item) => status === "ALL" || item.status === status)
+  const rows = useMemo(
+    () => submissions.filter((item) => status === "ALL" || item.status === status),
+    [submissions, status],
+  )
+
+  const table = useTable({
+    features: dataGridFeatures,
+    data: rows,
+    columns,
+    getRowId: (row) => row.id,
+  })
 
   return (
     <div className="flex flex-col gap-4">
@@ -69,49 +122,21 @@ export function ApprovalQueue() {
           size="sm"
           disabled={syncing}
           onClick={handleSync}
-          className="h-9 gap-1.5 rounded-lg text-xs"
         >
-          <RefreshCwIcon className={`size-3.5 ${syncing ? "animate-spin" : ""}`} data-icon="inline-start" />
-          <span>Sync Live Submissions</span>
+          <RefreshCwIcon className={syncing ? "animate-spin" : undefined} data-icon="inline-start" />
+          Sync Live Submissions
         </Button>
       </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Customer</TableHead>
-            <TableHead>NIP</TableHead>
-            <TableHead>NBDS</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Note</TableHead>
-            <TableHead>Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell className="font-medium">{row.customerName}</TableCell>
-              <TableCell className="tabular-nums">{row.nip}</TableCell>
-              <TableCell>
-                <NbdsLog result={row.nbdsResult} />
-              </TableCell>
-              <TableCell>
-                <Badge variant="outline">{STATUS_LABEL[row.status]}</Badge>
-              </TableCell>
-              <TableCell>{row.note ?? "—"}</TableCell>
-              <TableCell>
-                <StatusActions submission={row} />
-              </TableCell>
-            </TableRow>
-          ))}
-          {rows.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={6} className="h-24 text-center text-sm text-muted-foreground">
-                Tidak ada pengajuan dalam status ini.
-              </TableCell>
-            </TableRow>
-          ) : null}
-        </TableBody>
-      </Table>
+
+      <DataGrid
+        table={table}
+        recordCount={rows.length}
+        emptyMessage="Tidak ada pengajuan dalam status ini."
+      >
+        <DataGridContainer>
+          <DataGridTable />
+        </DataGridContainer>
+      </DataGrid>
     </div>
   )
 }

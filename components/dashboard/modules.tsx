@@ -5,10 +5,17 @@ import {
   MapIcon,
   PackageIcon,
   ShieldCheckIcon,
+  WorkflowIcon,
   type LucideIcon,
 } from "lucide-react"
 
 export const MODULES = [
+  {
+    id: "overview",
+    label: "Dashboard",
+    description: "Branch KPIs, pipeline stages and approvals at a glance.",
+    icon: LayoutDashboardIcon,
+  },
   {
     id: "intake",
     label: "Intake",
@@ -25,7 +32,7 @@ export const MODULES = [
     id: "pipeline",
     label: "Pipeline",
     description: "Track branch prospects and scheduled visits.",
-    icon: LayoutDashboardIcon,
+    icon: WorkflowIcon,
   },
   {
     id: "monitoring",
