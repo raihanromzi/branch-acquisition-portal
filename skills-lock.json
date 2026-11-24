@@ -8,9 +8,16 @@
       "skillPath": ".claude/skills/design/SKILL.md",
       "computedHash": "b0500382bb6aa23e200d20f4aa7e8ffc4bc0831b56615e174ab0a54b3f3d3e46"
     },
+    "migrate-radix-to-base": {
+      "source": "shadcn/ui",
+      "commit": "055aa6b7837b1808456a24beb4c97a677864aa82",
+      "sourceType": "github",
+      "skillPath": "skills/migrate-radix-to-base/SKILL.md",
+      "computedHash": "7644de21e9aa533904def58c30f809ae6574c3cabc6396ab8b03dee751e8ffbe"
+    },
     "shadcn": {
-      "source": "shadcn-ui/ui",
-      "commit": "bfa64ff4d1cb7317d2403ecb176df6826d4caffc",
+      "source": "shadcn/ui",
+      "commit": "055aa6b7837b1808456a24beb4c97a677864aa82",
       "sourceType": "github",
       "skillPath": "skills/shadcn/SKILL.md",
       "computedHash": "388962d16c7a4f13aaeee0d8f128e50a87df8553d42ef7988c39c0e1c74a40e8"

@@ -1,3 +1,4 @@
+import { Card, CardContent } from "@/components/ui/card"
 import { formatRupiah } from "@/src/domain/currency"
 import type { BranchKpi } from "@/src/types/entities"
 
@@ -10,12 +11,14 @@ export function KpiCards({ kpi }: { kpi: BranchKpi }) {
     { label: "EDC Penetration", value: `${kpi.edcPenetrationPercent}%` },
   ]
   return (
-    <div className="grid gap-4 md:grid-cols-5">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
       {cards.map((card) => (
-        <div key={card.label} className="flex flex-col gap-1 border border-border p-4">
-          <p className="text-xs text-muted-foreground">{card.label}</p>
-          <p className="text-sm font-semibold tabular-nums">{card.value}</p>
-        </div>
+        <Card key={card.label} className="gap-1 p-4">
+          <CardContent className="flex flex-col gap-1 p-0">
+            <p className="text-xs text-muted-foreground">{card.label}</p>
+            <p className="text-sm font-semibold break-words tabular-nums">{card.value}</p>
+          </CardContent>
+        </Card>
       ))}
     </div>
   )

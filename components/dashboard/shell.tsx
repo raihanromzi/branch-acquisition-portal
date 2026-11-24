@@ -7,6 +7,7 @@ import { ApprovalTab } from "@/components/approval/approval-tab"
 import { CatalogTab } from "@/components/catalog/catalog-tab"
 import { Header } from "@/components/dashboard/header"
 import { MODULES, type ModuleId } from "@/components/dashboard/modules"
+import { OverviewTab } from "@/components/overview/overview-tab"
 import { IntakeTab } from "@/components/intake/intake-tab"
 import { MonitoringTab } from "@/components/monitoring/monitoring-tab"
 import { PipelineTab } from "@/components/pipeline/pipeline-tab"
@@ -27,11 +28,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarSeparator,
 } from "@/components/ui/sidebar"
 
 export function DashboardShell() {
-  const [activeModule, setActiveModule] = useState<ModuleId>("intake")
+  const [activeModule, setActiveModule] = useState<ModuleId>("overview")
   const [query, setQuery] = useState("")
 
   useEffect(() => {
@@ -55,6 +55,7 @@ export function DashboardShell() {
   const activeModuleMeta =
     MODULES.find((item) => item.id === activeModule) ?? MODULES[0]
   const panel = {
+    overview: <OverviewTab />,
     intake: <IntakeTab />,
     approval: <ApprovalTab />,
     pipeline: <PipelineTab />,
@@ -87,7 +88,6 @@ export function DashboardShell() {
             />
           </div>
         </SidebarHeader>
-        <SidebarSeparator />
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel className="text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
@@ -131,7 +131,7 @@ export function DashboardShell() {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset className="min-w-0 bg-background">
-        <Header />
+        <Header breadcrumb={activeModuleMeta.label} />
         <main className="flex flex-col gap-5 p-5 lg:p-7">
           <div className="flex flex-col gap-1">
             <h1 className="text-xl font-semibold tracking-tight">

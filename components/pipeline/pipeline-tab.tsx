@@ -3,10 +3,10 @@
 import { useMemo, useState } from "react"
 import { CheckCircle2Icon, SearchIcon, SlidersHorizontalIcon } from "lucide-react"
 
+import { Badge } from "@/components/reui/badge"
 import { BatchClosingPanel } from "@/components/pipeline/batch-closing-panel"
+import { PipelineTimeline } from "@/components/pipeline/pipeline-timeline"
 import { StageInspector } from "@/components/pipeline/stage-inspector"
-import { WorkflowCanvas } from "@/components/pipeline/workflow-canvas"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -118,8 +118,8 @@ export function PipelineTab() {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid gap-4 lg:grid-cols-[260px_1fr_300px]">
-          <aside className="flex flex-col gap-2 rounded-xl border border-border bg-card p-3">
+        <div className="grid gap-4 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[240px_minmax(0,1fr)_320px]">
+          <Card className="gap-2 p-3">
             <p className="px-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Pipelines ({filtered.length})
             </p>
@@ -161,16 +161,18 @@ export function PipelineTab() {
                 </p>
               ) : null}
             </div>
-          </aside>
+          </Card>
 
           {selectedEntry ? (
             <>
-              <WorkflowCanvas
+              <PipelineTimeline
                 entry={selectedEntry}
                 selectedStage={effectiveStage}
                 onSelectStage={setSelectedStage}
               />
-              <StageInspector entry={selectedEntry} selectedStage={effectiveStage} />
+              <div className="lg:col-span-2 xl:col-span-1">
+                <StageInspector entry={selectedEntry} selectedStage={effectiveStage} />
+              </div>
             </>
           ) : (
             <div className="flex items-center justify-center rounded-xl border border-dashed border-border p-12 text-sm text-muted-foreground lg:col-span-2">
